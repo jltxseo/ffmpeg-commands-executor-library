@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private static ProgressDialog mWaitingDialog;
     private WaitingDialogHanlder mWaitingDialogHandler;
 
-    //private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4 -vframes 30 -y -f gif /sdcard/demoout.gif";
-    private static final String testCommand = "ffmpeg -h";
+//    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4 -vframes 30 -y -f gif /sdcard/demoout.gif";
+//    private static final String testCommand = "ffmpeg -h";
+    private static final String testCommand = "ffmpeg -ss 0 -i /sdcard/demo.mp4 -t 5 -strict -2 -vf crop=300:300:0:420 /sdcard/demoout.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

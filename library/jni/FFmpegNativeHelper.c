@@ -4190,7 +4190,7 @@ static int init() {
  * Signature: ()I
  */
 // native function, java layer call this to run a ffmpeg command
-JNIEXPORT jstring Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1run(
+JNIEXPORT jstring Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1run(
         JNIEnv* env, jobject thiz, jobjectArray strArray)
 {
     int ret, i, pid;
@@ -4286,7 +4286,7 @@ done:
  * Method:    ffmpeg_uninit
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1uninit
+JNIEXPORT jint JNICALL Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1uninit
   (JNIEnv * env, jobject thiz)
 {
     // Deprecated
@@ -4299,7 +4299,7 @@ JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1u
  * Method:    ffmpeg_init
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1init
+JNIEXPORT jint JNICALL Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1init
   (JNIEnv * env, jobject thiz)
 {
     // Deprecated

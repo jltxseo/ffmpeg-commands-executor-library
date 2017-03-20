@@ -13,7 +13,7 @@ extern "C" {
  * Method:    ffmpeg_init
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1init
+JNIEXPORT jint JNICALL Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1init
   (JNIEnv *, jobject);
 
 /*
@@ -21,7 +21,7 @@ JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1i
  * Method:    ffmpeg_uninit
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1uninit
+JNIEXPORT jint JNICALL Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1uninit
   (JNIEnv *, jobject);
 
 /*
@@ -29,7 +29,7 @@ JNIEXPORT jint JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1u
  * Method:    ffmpeg_run
  * Signature: ()I
  */
-JNIEXPORT jstring JNICALL Java_cn_dxjia_ffmpeg_library_FFmpegNativeHelper_ffmpeg_1run
+JNIEXPORT jstring JNICALL Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1run
   (JNIEnv *, jobject, jobjectArray strArray);
 
 #ifdef __cplusplus
