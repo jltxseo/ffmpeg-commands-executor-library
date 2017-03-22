@@ -1,4 +1,4 @@
-package cn.dxjia.ffmpeg.library;
+package com.xiachufang.utils.video;
 
 import org.junit.Test;
 

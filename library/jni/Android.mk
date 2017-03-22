@@ -8,37 +8,37 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE:= avcodec-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavcodec-56.so
+LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavcodec-57.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE:= avdevice-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavdevice-56.so
+LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavdevice-57.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE:= avfilter-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavfilter-5.so
+LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavfilter-6.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE:= avformat-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavformat-56.so
+LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavformat-57.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE :=  avutil-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libavutil-54.so
+LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libavutil-55.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := swresample-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libswresample-1.so
+LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libswresample-2.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := swscale-prebuilt-$(LIB_NAME_PLUS)
-LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libswscale-3.so
+LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libswscale-4.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)

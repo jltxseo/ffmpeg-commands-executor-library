@@ -5,7 +5,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "cn.dxjia.ffmpegexecutor"
+        applicationId "com.xiachufang.ffmpegexecutor"
         minSdkVersion 7
         targetSdkVersion 22
         versionCode 1

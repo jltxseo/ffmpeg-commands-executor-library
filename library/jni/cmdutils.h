@@ -19,8 +19,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef FFMPEG_CMDUTILS_H
-#define FFMPEG_CMDUTILS_H
+#ifndef CMDUTILS_H
+#define CMDUTILS_H
 
 #include <stdint.h>
 
@@ -46,7 +46,7 @@ extern const int program_birth_year;
 
 extern AVCodecContext *avcodec_opts[AVMEDIA_TYPE_NB];
 extern AVFormatContext *avformat_opts;
-extern struct SwsContext *sws_opts;
+extern AVDictionary *sws_dict;
 extern AVDictionary *swr_opts;
 extern AVDictionary *format_opts, *codec_opts, *resample_opts;
 extern int hide_banner;
@@ -59,46 +59,51 @@ void register_exit(void (*cb)(int ret));
 /**
  * Wraps exit with a program-specific cleanup routine.
  */
-void exit_program(int ret);
+void exit_program(int ret) av_noreturn;
+
+/**
+ * Initialize dynamic library loading
+ */
+                           void init_dynload(void);
 
 /**
  * Initialize the cmdutils option system, in particular
  * allocate the *_opts contexts.
  */
-void init_opts(void);
+                           void init_opts(void);
 /**
  * Uninitialize the cmdutils option system, in particular
  * free the *_opts contexts and their contents.
  */
-void uninit_opts(void);
+                           void uninit_opts(void);
 
 /**
  * Trivial log callback.
  * Only suitable for opt_help and similar since it lacks prefix handling.
  */
-void log_callback_help(void* ptr, int level, const char* fmt, va_list vl);
+                           void log_callback_help(void* ptr, int level, const char* fmt, va_list vl);
 
 /**
  * Override the cpuflags.
  */
-int opt_cpuflags(void *optctx, const char *opt, const char *arg);
+                           int opt_cpuflags(void *optctx, const char *opt, const char *arg);
 
 /**
  * Fallback for options that are not explicitly handled, these will be
  * parsed through AVOptions.
  */
-int opt_default(void *optctx, const char *opt, const char *arg);
+                           int opt_default(void *optctx, const char *opt, const char *arg);
 
 /**
  * Set the libav* libraries log level.
  */
-int opt_loglevel(void *optctx, const char *opt, const char *arg);
+                           int opt_loglevel(void *optctx, const char *opt, const char *arg);
 
-int opt_report(const char *opt);
+                           int opt_report(const char *opt);
 
-int opt_max_alloc(void *optctx, const char *opt, const char *arg);
+                           int opt_max_alloc(void *optctx, const char *opt, const char *arg);
 
-int opt_codec_debug(void *optctx, const char *opt, const char *arg);
+                           int opt_codec_debug(void *optctx, const char *opt, const char *arg);
 
 #if CONFIG_OPENCL
 int opt_opencl(void *optctx, const char *opt, const char *arg);
@@ -109,7 +114,7 @@ int opt_opencl_bench(void *optctx, const char *opt, const char *arg);
 /**
  * Limit the execution time.
  */
-int opt_timelimit(void *optctx, const char *opt, const char *arg);
+                           int opt_timelimit(void *optctx, const char *opt, const char *arg);
 
 /**
  * Parse a string and return its corresponding value as a double.
@@ -124,8 +129,8 @@ int opt_timelimit(void *optctx, const char *opt, const char *arg);
  * @param min the minimum valid accepted value
  * @param max the maximum valid accepted value
  */
-double parse_number_or_die(const char *context, const char *numstr, int type,
-                           double min, double max);
+                           double parse_number_or_die(const char *context, const char *numstr, int type,
+                                                      double min, double max);
 
 /**
  * Parse a string specifying a time and return its corresponding
@@ -141,23 +146,23 @@ double parse_number_or_die(const char *context, const char *numstr, int type,
  *
  * @see av_parse_time()
  */
-int64_t parse_time_or_die(const char *context, const char *timestr,
-                          int is_duration);
+                           int64_t parse_time_or_die(const char *context, const char *timestr,
+                                                     int is_duration);
 
-typedef struct SpecifierOpt {
-    char *specifier;    /**< stream/chapter/program/... specifier */
-    union {
-        uint8_t *str;
-        int        i;
-        int64_t  i64;
-        float      f;
-        double   dbl;
-    } u;
-} SpecifierOpt;
+                           typedef struct SpecifierOpt {
+                               char *specifier;    /**< stream/chapter/program/... specifier */
+                               union {
+                                   uint8_t *str;
+                                   int        i;
+                                   int64_t  i64;
+                                   float      f;
+                                   double   dbl;
+                               } u;
+                           } SpecifierOpt;
 
-typedef struct OptionDef {
-    const char *name;
-    int flags;
+                           typedef struct OptionDef {
+                               const char *name;
+                               int flags;
 #define HAS_ARG    0x0001
 #define OPT_BOOL   0x0002
 #define OPT_EXPERT 0x0004
@@ -180,14 +185,14 @@ typedef struct OptionDef {
 #define OPT_DOUBLE 0x20000
 #define OPT_INPUT  0x40000
 #define OPT_OUTPUT 0x80000
-     union {
-        void *dst_ptr;
-        int (*func_arg)(void *, const char *, const char *);
-        size_t off;
-    } u;
-    const char *help;
-    const char *argname;
-} OptionDef;
+                               union {
+                                   void *dst_ptr;
+                                   int (*func_arg)(void *, const char *, const char *);
+                                   size_t off;
+                               } u;
+                               const char *help;
+                               const char *argname;
+                           } OptionDef;
 
 /**
  * Print help for all options matching specified flags.
@@ -198,8 +203,8 @@ typedef struct OptionDef {
  * @param rej_flags don't print options which have any of those flags set.
  * @param alt_flags print only options that have at least one of those flags set
  */
-void show_help_options(const OptionDef *options, const char *msg, int req_flags,
-                       int rej_flags, int alt_flags);
+                           void show_help_options(const OptionDef *options, const char *msg, int req_flags,
+                           int rej_flags, int alt_flags);
 
 /**
  * Show help for all options with given flags in class and all its
@@ -277,7 +282,7 @@ typedef struct OptionGroup {
     AVDictionary *codec_opts;
     AVDictionary *format_opts;
     AVDictionary *resample_opts;
-    struct SwsContext *sws_opts;
+    AVDictionary *sws_dict;
     AVDictionary *swr_opts;
 } OptionGroup;
 
@@ -437,6 +442,20 @@ int show_license(void *optctx, const char *opt, const char *arg);
 int show_formats(void *optctx, const char *opt, const char *arg);
 
 /**
+ * Print a listing containing all the muxers supported by the
+ * program (including devices).
+ * This option processing function does not utilize the arguments.
+ */
+int show_muxers(void *optctx, const char *opt, const char *arg);
+
+/**
+ * Print a listing containing all the demuxer supported by the
+ * program (including devices).
+ * This option processing function does not utilize the arguments.
+ */
+int show_demuxers(void *optctx, const char *opt, const char *arg);
+
+/**
  * Print a listing containing all the devices supported by the
  * program.
  * This option processing function does not utilize the arguments.
@@ -445,13 +464,13 @@ int show_devices(void *optctx, const char *opt, const char *arg);
 
 #if CONFIG_AVDEVICE
 /**
- * Print a listing containing audodetected sinks of the output device.
+ * Print a listing containing autodetected sinks of the output device.
  * Device name with options may be passed as an argument to limit results.
  */
 int show_sinks(void *optctx, const char *opt, const char *arg);
 
 /**
- * Print a listing containing audodetected sources of the input device.
+ * Print a listing containing autodetected sources of the input device.
  * Device name with options may be passed as an argument to limit results.
  */
 int show_sources(void *optctx, const char *opt, const char *arg);
@@ -530,18 +549,6 @@ int show_colors(void *optctx, const char *opt, const char *arg);
 int read_yesno(void);
 
 /**
- * Read the file with name filename, and put its content in a newly
- * allocated 0-terminated buffer.
- *
- * @param filename file to read from
- * @param bufptr location where pointer to buffer is returned
- * @param size   location where size of buffer is returned
- * @return >= 0 in case of success, a negative value corresponding to an
- * AVERROR error code in case of failure.
- */
-int cmdutils_read_file(const char *filename, char **bufptr, size_t *size);
-
-/**
  * Get a file corresponding to a preset file.
  *
  * If is_path is non-zero, look for the file in the path preset_name.
@@ -596,5 +603,7 @@ void *grow_array(void *array, int elem_size, int *size, int new_size);
 #define GET_CH_LAYOUT_DESC(ch_layout)\
     char name[128];\
     av_get_channel_layout_string(name, sizeof(name), 0, ch_layout);
+
+double get_rotation(AVStream *st);
 
 #endif /* CMDUTILS_H */
