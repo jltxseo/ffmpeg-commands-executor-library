@@ -8,10 +8,12 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.xiachufang.utils.video.FFmpegMediaMetadataRetriever;
 import com.xiachufang.utils.video.FFmpegNativeHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 //    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4 -vframes 30 -y -f gif /sdcard/demoout.gif";
 //    private static final String testCommand = "ffmpeg -h";
 //    private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 15.0 -vf crop=300:300:0:400 /sdcard/demoout.mp4";
-private static final String testCommand = "ffmpeg -ss 0 -i /sdcard/demo.mp4 -q:v 1 -t 5 -vf crop=800:800:1000:400 /sdcard/demoout.mp4";
+//    private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 4.84499979019165 -q:v 5 -s 640x640 -vf crop=1080:1080:0:0 -r 15 /sdcard/demoout.mp4";
+    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,14 @@ private static final String testCommand = "ffmpeg -ss 0 -i /sdcard/demo.mp4 -q:v
                 runCommandAsync();
             }
         });
+
+        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+        mmr.setDataSource("/sdcard/demo.mp4");
+        Log.e("宽" , mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
+        Log.e("高" , mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
+        Log.e("旋转", mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION));
+
+        mmr.release();
     }
 
     private void prepare() {
