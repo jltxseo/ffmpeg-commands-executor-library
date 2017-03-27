@@ -53,4 +53,11 @@
         android:text="Result will be showed here!"
         android:scrollbars="vertical"
         android:scrollbarFadeDuration="1000"/>
+
+    <ImageView
+        android:id="@+id/imageviewsss"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

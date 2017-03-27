@@ -1,6 +1,7 @@
 package com.xiachufang.ffmpegexecutor;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xiachufang.utils.video.FFmpegMediaMetadataRetriever;
@@ -72,7 +74,17 @@ public class MainActivity extends AppCompatActivity {
         Log.e("高" , mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
         Log.e("旋转", mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION));
 
+
         mmr.release();
+
+        FFmpegMediaMetadataRetriever metadataRetriever = new FFmpegMediaMetadataRetriever();
+        metadataRetriever.setDataSource("/sdcard/demo.mp4");
+        metadataRetriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
+        metadataRetriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
+        Bitmap b = metadataRetriever.getFrameAtTime(2000000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds
+        ImageView imageview = (ImageView) findViewById(R.id.imageviewsss);
+        imageview.setImageBitmap(b);
+        metadataRetriever.release();
     }
 
     private void prepare() {
