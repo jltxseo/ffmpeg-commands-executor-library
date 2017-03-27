@@ -7,13 +7,13 @@ public class FFmpegNativeHelper {
 	}
 	
 	static {
-		System.loadLibrary("avutil");
-		System.loadLibrary("swresample");
-		System.loadLibrary("avcodec");
-		System.loadLibrary("avformat");
-		System.loadLibrary("swscale");
-		System.loadLibrary("avfilter");
-		System.loadLibrary("avdevice");
+		System.loadLibrary("avutil-55");
+		System.loadLibrary("swresample-2");
+		System.loadLibrary("avcodec-57");
+		System.loadLibrary("avformat-57");
+		System.loadLibrary("swscale-4");
+		System.loadLibrary("avfilter-6");
+		System.loadLibrary("avdevice-57");
 		System.loadLibrary("ffmpegjni");
 	}
 
