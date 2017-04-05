@@ -14,9 +14,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.xiachufang.utils.video.FFmpegMediaMetadataRetriever;
 import com.xiachufang.utils.video.FFmpegNativeHelper;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
 //    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4 -vframes 30 -y -f gif /sdcard/demoout.gif";
 //    private static final String testCommand = "ffmpeg -h";
 //    private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 15.0 -vf crop=300:300:0:400 /sdcard/demoout.mp4";
-//    private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 4.84499979019165 -q:v 5 -s 640x640 -vf crop=1080:1080:0:0 -r 15 /sdcard/demoout.mp4";
-    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4";
+    private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 4.84499979019165 -q:v 5 -s 544x434 -vf crop=544:434:0:0 -r 15 -c:v libx264 /sdcard/demoout.mp4";
+//      private static final String testCommand = "ffmpeg -codecs";
+    private VideoView mVideoView;
+    //    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String executeCommand(String command) {
+        File file = new File("/sdcard/demoout.mp4");
+        if (file.exists()) {
+            file.delete();
+        }
         return FFmpegNativeHelper.runCommand(command);
     }
 

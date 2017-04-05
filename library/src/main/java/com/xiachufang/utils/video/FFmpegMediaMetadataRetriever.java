@@ -113,6 +113,7 @@ public class FFmpegMediaMetadataRetriever
 	
 
 	static {
+        System.loadLibrary("x264-148");
         System.loadLibrary("avutil-55");
         System.loadLibrary("swresample-2");
         System.loadLibrary("avcodec-57");
@@ -120,6 +121,7 @@ public class FFmpegMediaMetadataRetriever
         System.loadLibrary("swscale-4");
         System.loadLibrary("avfilter-6");
         System.loadLibrary("avdevice-57");
+        System.loadLibrary("postproc-54");
         System.loadLibrary("ffmpeg_mediametadataretriever_jni");
         native_init();
     }

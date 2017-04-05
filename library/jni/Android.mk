@@ -7,6 +7,11 @@ endif
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := x264-prebuilt-$(LIB_NAME_PLUS)
+LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libx264-148.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE:= avcodec-prebuilt-$(LIB_NAME_PLUS)
 LOCAL_SRC_FILES:= prebuilt/$(LIB_NAME_PLUS)/libavcodec-57.so
 include $(PREBUILT_SHARED_LIBRARY)
@@ -42,6 +47,11 @@ LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libswscale-4.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := postproc-prebuilt-$(LIB_NAME_PLUS)
+LOCAL_SRC_FILES := prebuilt/$(LIB_NAME_PLUS)/libpostproc-54.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := libffmpegjni
 
@@ -66,7 +76,9 @@ LOCAL_SHARED_LIBRARIES:= avcodec-prebuilt-$(LIB_NAME_PLUS) \
                          avformat-prebuilt-$(LIB_NAME_PLUS) \
                          avutil-prebuilt-$(LIB_NAME_PLUS) \
                          swresample-prebuilt-$(LIB_NAME_PLUS) \
-                         swscale-prebuilt-$(LIB_NAME_PLUS)
+                         swscale-prebuilt-$(LIB_NAME_PLUS) \
+                         postproc-prebuilt-$(LIB_NAME_PLUS) \
+                         x264-prebuilt-$(LIB_NAME_PLUS)
 
 LOCAL_C_INCLUDES += -L$(SYSROOT)/usr/include
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
@@ -106,7 +118,9 @@ LOCAL_SHARED_LIBRARIES:= avcodec-prebuilt-$(LIB_NAME_PLUS) \
                          avformat-prebuilt-$(LIB_NAME_PLUS) \
                          avutil-prebuilt-$(LIB_NAME_PLUS) \
                          swresample-prebuilt-$(LIB_NAME_PLUS) \
-                         swscale-prebuilt-$(LIB_NAME_PLUS)
+                         swscale-prebuilt-$(LIB_NAME_PLUS) \
+                         postproc-prebuilt-$(LIB_NAME_PLUS) \
+                         x264-prebuilt-$(LIB_NAME_PLUS)
 
 LOCAL_C_INCLUDES += -L$(SYSROOT)/usr/include
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
