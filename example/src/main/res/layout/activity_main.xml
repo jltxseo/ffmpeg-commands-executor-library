@@ -61,7 +61,7 @@
         android:layout_height="100dp"
         />
 
-    <VideoView
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/video_view"
         android:layout_below="@id/imageviewsss"
         android:layout_width="match_parent"

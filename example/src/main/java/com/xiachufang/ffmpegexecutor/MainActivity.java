@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.xiachufang.utils.video.FFmpegMediaMetadataRetriever;
 import com.xiachufang.utils.video.FFmpegNativeHelper;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //    private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 15.0 -vf crop=300:300:0:400 /sdcard/demoout.mp4";
     private static final String testCommand = "ffmpeg -ss 0.0 -i /sdcard/demo.mp4 -t 4.84499979019165 -q:v 5 -s 544x434 -vf crop=544:434:0:0 -r 15 -c:v libx264 /sdcard/demoout.mp4";
 //      private static final String testCommand = "ffmpeg -codecs";
-    private VideoView mVideoView;
+    private StandardGSYVideoPlayer mVideoView;
     //    private static final String testCommand = "ffmpeg -i /sdcard/demo.mp4";
 
     @Override
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mInputEdit = (EditText) findViewById(R.id.command_input_edit);
         mResultBoard = (TextView) findViewById(R.id.result_board);
         mResultBoard.setMovementMethod(new ScrollingMovementMethod());
+        mVideoView = (StandardGSYVideoPlayer) findViewById(R.id.video_view);
 
         mRunCommandAsyncTask = null;
 
@@ -159,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         }
         String currentStr = mResultBoard.getText().toString();
         mResultBoard.setText(currentStr + "\n" + message);
+
+        mVideoView.setUp("/sdcard/demoout.mp4", true, null, "/sdcard/demoout.mp4");
+        mVideoView.startPlayLogic();
     }
 
     private static class WaitingDialogHanlder extends Handler {

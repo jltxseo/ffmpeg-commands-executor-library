@@ -1,13 +1,20 @@
 apply plugin: 'com.android.application'
 
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 'android-24'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.xiachufang.ffmpegexecutor"
-        minSdkVersion 7
-        targetSdkVersion 22
+        minSdkVersion 16
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -17,6 +24,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes {
+
+        // 强制在 debug 和 release 时使用 armeabi，这样安装时才确保拷贝 so 文件夹
+        debug {
+            minifyEnabled false
+            ndk {
+                abiFilters 'armeabi'
+            }
+        }
+
+        release {
+            minifyEnabled false
+            ndk {
+                abiFilters 'armeabi'
+            }
+        }
+    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
 
 dependencies {
@@ -24,4 +54,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':library')
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.github.CarGuo:GSYVideoPlayer:v1.6.2'
+    compile 'com.android.support:multidex:1.0.1'
 }
