@@ -74,8 +74,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void testFFmpegMediaMetaDataRetriever() {
         FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-        mmr.setDataSource("/sdcard/demo.mp4");
+        mmr.setDataSource("/sdcard/demoout.mp4");
         Log.e("宽" , mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
         Log.e("高" , mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
         Log.e("旋转", mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION));
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         mmr.release();
 
         FFmpegMediaMetadataRetriever metadataRetriever = new FFmpegMediaMetadataRetriever();
-        metadataRetriever.setDataSource("/sdcard/demo.mp4");
+        metadataRetriever.setDataSource("/sdcard/demoout.mp4");
         metadataRetriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM);
         metadataRetriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST);
         Bitmap b = metadataRetriever.getFrameAtTime(2000000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds
@@ -160,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
         }
         String currentStr = mResultBoard.getText().toString();
         mResultBoard.setText(currentStr + "\n" + message);
+
+        testFFmpegMediaMetaDataRetriever();
 
         mVideoView.setUp("/sdcard/demoout.mp4", true, null, "/sdcard/demoout.mp4");
         mVideoView.startPlayLogic();
