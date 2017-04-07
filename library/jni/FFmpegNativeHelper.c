@@ -70,6 +70,10 @@
 # include "libavfilter/avfilter.h"
 # include "libavfilter/buffersrc.h"
 # include "libavfilter/buffersink.h"
+#include "jni.h"
+
+// for native window JNI
+#include <android/native_window_jni.h>
 
 #if HAVE_SYS_RESOURCE_H
 #include <sys/time.h>
@@ -110,6 +114,8 @@
 
 #include "android_log.h"
 #include "show_func_wrapper.h"
+
+static JavaVM *m_vm;
 
 const char program_name[] = "ffmpeg";
 const int program_birth_year = 2000;
@@ -4973,6 +4979,46 @@ JNIEXPORT jint JNICALL Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg
     // Deprecated
     //return init();
     return 0;
+}
+
+// JNI mapping between Java methods and native methods
+static JNINativeMethod nativeMethods[] = {
+        {"ffmpeg_run", "([Ljava/lang/String;)Ljava/lang/String;", (void *)Java_com_xiachufang_utils_video_FFmpegNativeHelper_ffmpeg_1run},
+};
+
+// This function only registers the native methods, and is called from
+// JNI_OnLoad in wseemann_media_FFmpegMediaMetadataRetriever.cpp
+int register_ffmpeg_native_helper(JNIEnv *env)
+{
+    int numMethods = (sizeof(nativeMethods) / sizeof( (nativeMethods)[0]));
+    jclass clazz = (*env)->FindClass(env, "com/xiachufang/utils/video/FFmpegNativeHelper");
+    jint ret = (*env)->RegisterNatives(env, clazz, nativeMethods, numMethods);
+    (*env)->DeleteLocalRef(env, clazz);
+    return ret;
+}
+
+jint JNI_OnLoad(JavaVM* vm, void* reserved)
+{
+    m_vm = vm;
+    JNIEnv* env = NULL;
+    jint result = -1;
+
+    if ((*vm)->GetEnv(vm, (void**) &env, JNI_VERSION_1_6) != JNI_OK) {
+        logv("%s", "ERROR: GetEnv failed\n");
+        goto bail;
+    }
+    assert(env != NULL);
+
+    if (register_ffmpeg_native_helper(env) < 0) {
+        loge("%s", "ERROR: FFmpegNativeHelper native registration failed\n");
+        goto bail;
+    }
+
+    /* success -- return valid version number */
+    result = JNI_VERSION_1_6;
+
+    bail:
+    return result;
 }
 
 

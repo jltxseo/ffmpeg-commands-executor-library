@@ -13,9 +13,9 @@ public class FFmpegNativeHelper {
 		System.loadLibrary("avcodec-57");
 		System.loadLibrary("avformat-57");
 		System.loadLibrary("swscale-4");
+		System.loadLibrary("postproc-54");
 		System.loadLibrary("avfilter-6");
 		System.loadLibrary("avdevice-57");
-		System.loadLibrary("postproc-54");
 		System.loadLibrary("ffmpegjni");
 	}
 
@@ -48,7 +48,5 @@ public class FFmpegNativeHelper {
 		return 0;
     }
 
-	private static native int ffmpeg_init();
-	private static native int ffmpeg_uninit();
 	private static native String ffmpeg_run(String[] args);
 }
