@@ -143,9 +143,11 @@ wseemann_media_FFmpegMediaMetadataRetriever_setDataSourceAndHeaders(
 
     // Workaround for FFmpeg ticket #998
     // "must convert mms://... streams to mmsh://... for FFmpeg to work"
-    char *restrict_to = strstr(tmp, "mms://");
+    // 在 android-ndk-r15c 上 strstr(...) 与 strncpy(...) 的函数签名有问题，导致有 const char* 与 char* 的隐式强转的错误
+    // 这里解决一下 const char* 与 char* 之间的互转
+    const char *restrict_to = strstr((const char *)tmp, "mms://");
     if (restrict_to) {
-    	strncpy(restrict_to, "mmsh://", 6);
+    	strncpy((char *)restrict_to, "mmsh://", 6);
     	puts(tmp);
     }
 
