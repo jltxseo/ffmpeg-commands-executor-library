@@ -13,7 +13,7 @@ dependencies {
 ```
 import package
 ```
-import com.xiachufang.utils.video.FFmpegNativeHelper;
+import cn.dxjia.ffmpeg.library.FFmpegNativeHelper;
 ```
 run command
 ```
